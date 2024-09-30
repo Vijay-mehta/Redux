@@ -25,7 +25,7 @@ setEditData(modalData)
               <h2 className=" px-2 mb-4 text-2xl font-medium  pr-44">
                 Edit Account
               </h2>
-              <div className=" bg-white m-2 p-1" onClick={() => setIsOpen(false)}>&#x2717;</div>
+              <div className=" bg-white m-2 p-1 cursor-pointer" onClick={() => setIsOpen(false)}>&#x2717;</div>
             </div>
 
             <form

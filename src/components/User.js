@@ -2,11 +2,14 @@ import { addUser,deleteUser } from "../redux/action";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Modal from "./Modal";
+import PrintData from "./PrintData";
 
 const User = () => {
     const dispatch=useDispatch();
     const [userData,setUserData] =useState({name:"",email:"",password:""})
     const[isOpen,setIsOpen]=useState(false);
+    const[isOpenForCopy,setIsOpenForCopy]=useState(false);
+
     const [modalData,setModalData]=useState('')
     let data= useSelector(state=>state.users)
     const [indexM,setIndexM]=useState('')
@@ -19,7 +22,9 @@ const User = () => {
 
   return (
     <>
-    {isOpen && <Modal setIsOpen={setIsOpen} modalData={modalData} setModalData={setModalData} indexM={indexM}/>}
+    {isOpen && <><Modal setIsOpen={setIsOpen} modalData={modalData} setModalData={setModalData} indexM={indexM}/></>}
+    {isOpenForCopy && <><PrintData setIsOpenForCopy={setIsOpenForCopy} modalData={modalData} /></>}
+
     <div className=" flex  flex-row justify-center">
     <div className=" w-[450px]   border-white shadow-lg p-8  border-2 mt-20 ">
       <h2 className=" px-2 mb-4 text-2xl font-medium">Create Account</h2>
@@ -90,7 +95,7 @@ const User = () => {
                 {data.map((user,index)=>(
                    <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={index}>
                     <td className="px-6 py-4">
-                       {index}
+                       {index+1}
                    </td>
                    <td className="px-6 py-4">
                        {user.name}
@@ -103,8 +108,14 @@ const User = () => {
                    <span className="mr-5 cursor-pointer" onClick={()=>{setModalData(user);
                    setIndexM(index)
                     setIsOpen(true)}}>&#9998;</span>
-                   <span className="cursor-pointer pl-6 " onClick={()=>{alert("Are You Sure You Want to Delete Account?");
+                   <span className="cursor-pointer  pl-8 " onClick={()=>{alert("Are You Sure You Want to Delete Account?");
                     dispatch(deleteUser(index))}} >&times;</span>
+                    <span className="cursor-pointer pl-8 " onClick={()=>{setIsOpenForCopy(true);
+                      setModalData(user)
+                    }}>&#128203;</span>
+
+
+
                    </td>
 
 
